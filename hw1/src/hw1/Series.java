@@ -1,12 +1,16 @@
 package hw1;
 
+/**
+ * This class provides two functions for calculating  the series 1/(1^2) + 1/(2^2) ... 1/(i^2).
+ * @author Chris W Jones
+ *
+ */
 public class Series {
-
-	public static void main(String[] args) {
-		System.out.println(seriesIter(3));
-		System.out.println(seriesRec(3));
-	}
-	
+	/**
+	 * For calculating the series iteratively
+	 * @param ithDigit
+	 * @return
+	 */
 	public static double seriesIter(int ithDigit){
 		double iterativeAnswer = 0.0;
 		for(int iteration=1; iteration<=ithDigit; iteration++){
@@ -15,6 +19,11 @@ public class Series {
 		return iterativeAnswer;
 	}
 	
+	/**
+	 * For calculating the series recursively
+	 * @param ithDigit
+	 * @return
+	 */
 	public static double seriesRec(int ithDigit){
 		if(ithDigit==1){
 			return 1.0;
