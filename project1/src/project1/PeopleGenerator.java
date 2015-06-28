@@ -1,5 +1,8 @@
 package project1;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class PeopleGenerator {
 	
 	public static String[] generate(int minute){
@@ -18,7 +21,7 @@ public class PeopleGenerator {
 				"Carol " + c
 			}; 
 		
-		//Collections.shuffle(Arrays.asList(people));
+		Collections.shuffle(Arrays.asList(people));
 		return people;
 	}
 }

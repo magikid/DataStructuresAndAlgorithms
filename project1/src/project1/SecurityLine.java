@@ -32,27 +32,17 @@ public class SecurityLine {
 		addTenPeople();
 	}
 	
-	public void tick(){
-		time++;
+	public void tick(int timePassed){
+		time=timePassed;
 		outputBeginning();
 		addTenPeople();
 		clearAllGates();
 		Gate nextGate = checkForFreeGate();
-		while (nextGate != null) {
+		while (nextGate != null && lineOfPeople.size() > 0) {
 			nextGate.sendToGate(lineOfPeople.removeFirst());
 			nextGate = checkForFreeGate();
 		}
 		outputEnding();
-	}
-	
-	private String peopleInLine(){
-		return Arrays.toString(lineOfPeople.toArray()) + "\n";
-	}
-	
-	private void clearAllGates(){
-		for(Gate gate: gates){
-			gate.clearGate();
-		}
 	}
 	
 	private Gate checkForFreeGate(){
@@ -63,7 +53,23 @@ public class SecurityLine {
 		}
 		return null;
 	}
+
+	private void addTenPeople(){
+		for (String person : PeopleGenerator.generate(time)) {
+			lineOfPeople.addLast(person);
+		}
+	}
+
+	private void clearAllGates(){
+		for(Gate gate: gates){
+			gate.clearGate();
+		}
+	}	
 	
+	private String peopleInLine(){
+		return Arrays.toString(lineOfPeople.toArray()) + "\n";
+	}
+
 	public void outputBeginning(){
 		StringBuilder output = new StringBuilder();
 		output.append("Beginning of minute " + time + "\n");
@@ -90,11 +96,5 @@ public class SecurityLine {
 		output.append(peopleInLine());
 		output.append("Number of people in line: " + lineOfPeople.size() + "\n\n");
 		System.out.print(output.toString());
-	}
-	
-	private void addTenPeople(){
-		for (String person : PeopleGenerator.generate(time)) {
-			lineOfPeople.addLast(person);
-		}
 	}
 }
