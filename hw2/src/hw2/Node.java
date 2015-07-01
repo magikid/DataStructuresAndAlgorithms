@@ -11,8 +11,8 @@ public class Node {
 	
 	public Node(){
 		value = '\0';
-		next = new Node();
-		prev = new Node();
+		prev = this;
+		next = this;
 	}
 	
 	public void next(Node nextNode){
