@@ -7,34 +7,50 @@ public class LinkedList implements LinkedListInterface {
 		sentinel = new Node();
 	}
 
-	@Override
-	public Node insert(char newValue) {
-		Node newNode = new Node(newValue);
-		newNode.next(sentinel.next());
-		if(sentinel.next() != sentinel){
+	public Node insert(Node newNode) {
+		newNode.next(head());
+		if(head() != sentinel){
 			sentinel.prev(newNode);
 		}
-		sentinel.next(newNode);
+		head(newNode);
 		newNode.prev(sentinel);
 		
-		
+		printList();
 		return newNode;
 	}
 
-	@Override
 	public void delete(Node deletableNode) {
-		deletableNode.prev().next(deletableNode.next());
 		deletableNode.next().prev(deletableNode.prev());
+		deletableNode.prev().next(deletableNode.next());
+		printList();
 	}
 
-	@Override
-	public Node search(char searchValue) {
-		Node head = sentinel.next();
-		while (head != sentinel && head.value() != searchValue) {
-			head = head.next();
+	public Node search(Node searchNode) {
+		Node nextNode = head();
+		while (nextNode != sentinel && nextNode.value() != searchNode.value()) {
+			nextNode = nextNode.next();
 		}
 		
-		return head;
+		System.out.println(nextNode.value());
+		return nextNode;
 	}
-
+	
+	private Node head(){
+		return sentinel.next();
+	}
+	
+	private void head(Node newHead){
+		sentinel.next(newHead);
+	}
+	
+	private void printList(){
+		Node nextNode = head();
+		StringBuilder output = new StringBuilder();
+		
+		while(nextNode != sentinel){
+			output.append(nextNode.value() + "\t");
+			nextNode = nextNode.next();
+		}
+		System.out.println(output.toString());
+	}
 }
