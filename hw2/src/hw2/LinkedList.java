@@ -1,6 +1,6 @@
 package hw2;
 
-public class LinkedList implements LinkedListInterface {
+public class LinkedList implements LinkedListInterface{
 	private Node sentinel; 
 	
 	public LinkedList(){
@@ -9,48 +9,90 @@ public class LinkedList implements LinkedListInterface {
 
 	public Node insert(Node newNode) {
 		newNode.next(head());
-		if(head() != sentinel){
-			sentinel.prev(newNode);
-		}
-		head(newNode);
 		newNode.prev(sentinel);
 		
-		printList();
+		head().prev(newNode);
+		head(newNode);
+		
+		if (tail() == sentinel) {
+			tail(newNode);
+		}
+				
+		return newNode;
+	}
+	
+	public Node insert(Node newNode, Runnable callback) {
+		Node temp = insert(newNode);
+		
+		callback.run();
+		return temp;
+	}
+	
+	public Node insert(Node newNode, Node insertAfter, Runnable callback) throws NodeNotFound {
+		Node foundNode = search(insertAfter);
+		newNode.prev(foundNode);
+		newNode.next(foundNode.next());
+		
+		foundNode.next().prev(newNode);
+		foundNode.next(newNode);
+		
+		callback.run();
 		return newNode;
 	}
 
 	public void delete(Node deletableNode) {
-		deletableNode.next().prev(deletableNode.prev());
 		deletableNode.prev().next(deletableNode.next());
-		printList();
-	}
-
-	public Node search(Node searchNode) {
-		Node nextNode = head();
-		while (nextNode != sentinel && nextNode.value() != searchNode.value()) {
-			nextNode = nextNode.next();
+		deletableNode.next().prev(deletableNode.prev());
+		if(tail() == deletableNode){
+			tail(deletableNode.prev());
 		}
-		
-		System.out.println(nextNode.value());
-		return nextNode;
+		deletableNode = null;
 	}
 	
-	private Node head(){
+	public void delete(Node deletableNode, Runnable callback) {
+		delete(deletableNode);
+		callback.run();
+	}
+
+	public Node search(Node searchNode) throws NodeNotFound {
+		Node nextNode = head();
+		while (nextNode != sentinel) {
+			if (nextNode.value() == searchNode.value()) {
+				return nextNode;
+			}else{
+				nextNode = nextNode.next();
+			}
+		}
+		
+		throw new NodeNotFound();
+	}
+	
+	public Node search(Node searchNode, Runnable callback) throws NodeNotFound{
+		Node returnNode = search(searchNode);
+		
+		callback.run();
+		return returnNode;
+	}
+	
+	public Node head(){
 		return sentinel.next();
+	}
+	
+	public Node tail(){
+		return sentinel.prev();
 	}
 	
 	private void head(Node newHead){
 		sentinel.next(newHead);
 	}
 	
-	private void printList(){
-		Node nextNode = head();
-		StringBuilder output = new StringBuilder();
-		
-		while(nextNode != sentinel){
-			output.append(nextNode.value() + "\t");
-			nextNode = nextNode.next();
+	private void tail(Node newTail){
+		sentinel.prev(newTail);
+	}
+	
+	public class NodeNotFound extends Exception{
+		public NodeNotFound(){
+			super("The given node wasn't found in the linked list");
 		}
-		System.out.println(output.toString());
 	}
 }
