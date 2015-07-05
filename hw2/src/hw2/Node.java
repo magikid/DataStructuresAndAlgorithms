@@ -1,11 +1,11 @@
 package hw2;
 
 public class Node {
-	private char value;
-	private Node next;
-	private Node prev;
+	public Object value;
+	public Node next;
+	public Node prev;
 	
-	public Node(char givenValue){
+	public Node(Object givenValue){
 		value = givenValue;
 	}
 	
@@ -31,11 +31,11 @@ public class Node {
 		return prev;
 	}
 	
-	public void value(char newValue){
+	public void value(Object newValue){
 		value = newValue;
 	}
 	
-	public char value(){
+	public Object value(){
 		return value;
 	}
 }
