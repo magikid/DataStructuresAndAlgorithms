@@ -10,29 +10,15 @@ public class LinkedListDriver {
 		LinkedList ll = new LinkedList();
 
 		/*
-		 * This is a method that can be passed to the insert(), delete(), 
-		 * or search() methods which will in turn call it.   
+		 * This is an implementation of the Runnable class that can 
+		 * be passed to the insert(), delete(), or search() methods 
+		 * which will in turn run it.  I really wanted to pass in an
+		 * anonymous function to print out the list.
 		 */
 		Runnable printList = new Runnable(){
 			@Override
 			public void run(){
-				Node nextNode = ll.head();
-				int counter = 1;
-				StringBuilder output = new StringBuilder();
-				
-				output.append("Node\tPrev\tValue\tNext\n");
-				while(nextNode != ll.tail().next()){
-					output.append(counter++ + "\t");
-					output.append(nextNode.prev().value() + "\t"); 
-					output.append(nextNode.value() + "\t");
-					output.append(nextNode.next().value() + "\n");
-					nextNode = nextNode.next();
-				}
-				output.append(counter++ + "\t");
-				output.append(nextNode.prev().value() + "\t"); 
-				output.append(nextNode.value() + "\t");
-				output.append(nextNode.next().value() + "\n");
-				System.out.println(output.toString());
+				System.out.println(ll.toString());
 			}
 		};
 		

@@ -90,6 +90,43 @@ public class LinkedList implements LinkedListInterface{
 		sentinel.prev(newTail);
 	}
 	
+	@Override
+	public String toString(){
+		Node nextNode = head();
+		int counter = 1;
+		StringBuilder output = new StringBuilder();
+		output.append("Frontways\n================\n");
+		output.append("Node\tPrev\tValue\tNext\n");
+		while(nextNode != tail().next()){
+			output.append(counter++ + "\t");
+			output.append(nextNode.prev().value() + "\t"); 
+			output.append(nextNode.value() + "\t");
+			output.append(nextNode.next().value() + "\n");
+			nextNode = nextNode.next();
+		}
+		output.append(counter++ + "\t");
+		output.append(nextNode.prev().value() + "\t"); 
+		output.append(nextNode.value() + "\t");
+		output.append(nextNode.next().value() + "\n\n");
+		
+		output.append("Backways\n================\n");
+		Node prevNode = tail();
+		output.append("Node\tPrev\tValue\tNext\n");		
+		counter--;
+		while(prevNode != tail().next()){
+			output.append((counter--) + "\t");
+			output.append(prevNode.prev().value() + "\t"); 
+			output.append(prevNode.value() + "\t");
+			output.append(prevNode.next().value() + "\n");
+			prevNode = prevNode.prev();
+		}
+		output.append((counter--) + "\t");
+		output.append(nextNode.prev().value() + "\t"); 
+		output.append(nextNode.value() + "\t");
+		output.append(nextNode.next().value() + "\n\n");
+		return output.toString();
+	}
+	
 	public class NodeNotFound extends Exception{
 		public NodeNotFound(){
 			super("The given node wasn't found in the linked list");
