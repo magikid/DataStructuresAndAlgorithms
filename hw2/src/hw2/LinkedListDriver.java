@@ -46,7 +46,7 @@ public class LinkedListDriver {
 		// I picked the first element to find and delete since that's an edge case. 
 		Node searchResults;
 		try {
-			searchResults = ll.search(new Node("g"), printList);
+			searchResults = ll.search(nodes[0], printList);
 			ll.delete(searchResults, printList);
 		} catch (NodeNotFound e) {
 			e.printStackTrace();
@@ -54,5 +54,12 @@ public class LinkedListDriver {
 		
 		// Just to show that the list operates correctly after a delete.
 		ll.insert(new Node('f'), printList);
+		
+		// This shows the NodeNotFound exception being raised.
+		try {
+			ll.search(new Node("G"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	};
 }
