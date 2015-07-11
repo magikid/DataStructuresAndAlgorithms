@@ -155,34 +155,7 @@ public class RedBlackTree {
      printInorderTree( header.right );
  }
   
- /* 
-  * @author Chris W Jones
-  * I wrote this portion to print out the tree 
-  * in the specified orders by the assignment.
-  */
- public void printInorderTree( RedBlackNode t ) {
-     if( t != nullNode ) {
-    	 printInorderTree( t.left );
-         System.out.println( t.element );
-         printInorderTree( t.right );
-     }
- }
  
- public void printPreTraversal(RedBlackNode t){
-     if( t != nullNode ) {
-    	 System.out.println( t.element );
-    	 printPreTraversal( t.left );
-    	 printPreTraversal( t.right );
-     }	 
- }
- 
- public void printPostTraversal(RedBlackNode t){
-     if( t != nullNode ) {
-    	 printPostTraversal( t.left );
-    	 printPostTraversal( t.right );
-    	 System.out.println( t.element );    	 
-     }	 
- }
  
  /**
   * Test if the tree is logically empty.
@@ -289,6 +262,47 @@ public class RedBlackTree {
  private static RedBlackNode parent;
  private static RedBlackNode grand;
  private static RedBlackNode great;
+ 
+ /**
+  * @author Chris W Jones
+  */
+ 
+ /* 
+  * I expanded the class to include the portions required by
+  * the assignment.
+  */
+	
+	public void printInorderTree( RedBlackNode t ) {
+		if( t != nullNode ) {
+			printInorderTree( t.left );
+	        System.out.println( t.element );
+	        printInorderTree( t.right );
+	    }
+	}
+ 
+	public void printPreTraversal( ) {
+		printPreTraversal( header.right );
+	}
+	
+ 	public void printPreTraversal(RedBlackNode t){
+	     if( t != nullNode ) {
+	    	 System.out.println( t.element );
+	    	 printPreTraversal( t.left );
+	    	 printPreTraversal( t.right );
+	     }
+	}
+
+	public void printPostTraversal( ) {
+		printPostTraversal( header.right );
+	}
+
+	public void printPostTraversal(RedBlackNode t){
+		if( t != nullNode ) {
+			printPostTraversal( t.left );
+			printPostTraversal( t.right );
+			System.out.println( t.element );    	 
+		}	 
+	}
 }
 
 
