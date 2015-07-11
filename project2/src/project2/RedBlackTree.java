@@ -1,4 +1,7 @@
+package project2;
+
 /*
+
 Design Decisions:
 -----------------
 
@@ -742,6 +745,85 @@ public class RedBlackTree<T extends Comparable<T>> {
 		// nodes on the root's right + the root itself.
 		return root.numLeft + root.numRight + 1;
 	}// end size()
+	
+	/**
+	 * @author Chris W Jones
+	 */
+	/*
+	 * I wrote all of the class methods below this point.
+	 */
+	
+	public String printTree(){
+		return printTree("order");
+	}
+	
+	public String printTree(String method){
+		switch(method){
+			case "pre": return preTraverse(root, new StringBuilder());
+			case "post": return postTraverse(root, new StringBuilder());
+			default: return inorderTraverse(root, new StringBuilder());
+		}
+	}
+	
+	public String preTraverse(RedBlackNode<T> node, StringBuilder output){
+		if(!isNil(node)){
+			output.append(node.key + " ");
+			preTraverse(node.left, output);
+			preTraverse(node.right, output);
+		}
+		return output.toString();
+	}
+	
+	public String inorderTraverse(RedBlackNode<T> node, StringBuilder output){
+		if(!isNil(node)){
+			inorderTraverse(node.left, output);
+			output.append(node.key + " ");
+			inorderTraverse(node.right, output);
+		}
+		return output.toString();
+	}
+	
+	public String postTraverse(RedBlackNode<T> node, StringBuilder output){
+		if(!isNil(node)){
+			postTraverse(node.left, output);
+			postTraverse(node.right, output);
+			output.append(node.key + " ");
+		}
+		return output.toString();		
+	}
+	
+	public int height(){
+		return height(root);
+	}
+	
+	private int height(RedBlackNode<T> node){
+		if(isNil(node)){
+			return 0;
+		}else{
+			return 1+Math.max(height(node.left), height(node.right));
+		}
+	}
+
+	public List<RedBlackNode<T>> leaves(){
+		return leaves(root, new ArrayList<RedBlackNode<T>>());
+	}
+	
+	public List<RedBlackNode<T>> leaves(RedBlackNode<T> node, List<RedBlackNode<T>> finalLeaves){
+		if(!isNil(node.left)){
+			leaves(node.left, finalLeaves);
+		}
+		if(!isNil(node.right)){
+			leaves(node.right, finalLeaves);
+		}
+		if(isNil(node.right) && isNil(node.left)){
+			finalLeaves.add(node);
+		}
+		return finalLeaves;
+	}
+	
+	public int numInternalNodes(){
+		return size() - leaves().size();
+	}
 
 }// end class RedBlackTree
 
